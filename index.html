@@ -1,0 +1,347 @@
+<!-- START OF FILE batch2018.html -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch 2018 - Premium List</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-sub: #636e72;
+            --success: #00b894;
+            --pending: #fdcb6e;
+            --rejected: #ff7675;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
+        
+        body { 
+            background: #f0f2f5;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,0) 0, hsla(253,16%,7%,0) 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, hsla(225,39%,30%,0) 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, hsla(339,49%,30%,0) 50%);
+            min-height: 100vh;
+            color: var(--text-main);
+            padding-bottom: 60px;
+        }
+
+        /* --- Header Animation --- */
+        .header {
+            background: var(--primary-grad);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.3);
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            animation: gradientMove 10s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header h2 { 
+            font-size: 28px; 
+            font-weight: 800; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p { font-size: 14px; opacity: 0.95; margin-top: 5px; font-weight: 300; }
+
+        .count-badge {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 15px;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 600px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Student Card Animation & Style --- */
+        .student-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            
+            /* Animation Setup */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        /* Status Colors & Glows */
+        .student-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+        .student-card.approved::before { background: var(--success); box-shadow: 2px 0 10px rgba(0,184,148,0.4); }
+        .student-card.verified::before { background: #0984e3; box-shadow: 2px 0 10px rgba(9,132,227,0.4); }
+        .student-card.pending::before { background: var(--pending); }
+        .student-card.rejected::before { background: var(--rejected); }
+
+        .student-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            margin-right: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .student-card:hover .student-img { transform: scale(1.1) rotate(5deg); }
+
+        .student-info { flex: 1; z-index: 2; }
+        
+        .student-name { 
+            font-size: 19px; 
+            font-weight: 700; 
+            color: var(--text-main); 
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .student-phone { 
+            font-size: 13px; 
+            color: var(--text-sub); 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-weight: 500;
+        }
+        .student-phone i { color: #764ba2; }
+
+        .status-badge { 
+            font-size: 11px; 
+            font-weight: 700; 
+            padding: 4px 12px; 
+            border-radius: 30px; 
+            display: inline-block; 
+            margin-top: 8px; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bg-approved { background: rgba(0,184,148,0.15); color: #008c70; }
+        .bg-pending { background: rgba(253,203,110,0.2); color: #e17055; }
+        .bg-rejected { background: rgba(255,118,117,0.15); color: #d63031; }
+
+        .check-icon {
+            font-size: 24px;
+            color: var(--success);
+            margin-left: 10px;
+            filter: drop-shadow(0 2px 5px rgba(0,184,148,0.3));
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- Loading Spinner --- */
+        #loading { 
+            text-align: center; margin-top: 80px; 
+            color: var(--text-sub); font-weight: 600; font-size: 16px;
+        }
+        .spinner-box {
+            width: 50px; height: 50px; margin: 0 auto 15px;
+            border: 4px solid rgba(118, 75, 162, 0.1);
+            border-left-color: #764ba2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>Batch 2018</h2>
+        <p>Registered Students List</p>
+        <div class="count-badge">Total Found: <span id="totalCount">0</span></div>
+    </div>
+
+    <div id="loading">
+        <div class="spinner-box"></div>
+        <span>Loading Data...</span>
+    </div>
+    
+    <div class="container" id="listContainer">
+        <!-- List will be injected here -->
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase Configuration (SAME TO SAME)
+        const firebaseConfig = {
+            apiKey: "AIzaSyB-n-SgnGwn1P9b-1Xkv3S5QM4U1zHa5nQ",
+            authDomain: "bb-high-school-reunion-2026.firebaseapp.com",
+            projectId: "bb-high-school-reunion-2026",
+            storageBucket: "bb-high-school-reunion-2026.firebasestorage.app",
+            messagingSenderId: "54413925090",
+            appId: "1:54413925090:web:b6ac44faf6313dc19b1cbb"
+        };
+
+        // Initialize
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const listContainer = document.getElementById('listContainer');
+        const loadingDiv = document.getElementById('loading');
+        const countSpan = document.getElementById('totalCount');
+
+        function loadBatch2018() {
+            const studentsRef = collection(db, "students");
+
+            // Realtime Listener
+            onSnapshot(studentsRef, (snapshot) => {
+                let students = [];
+                
+                snapshot.forEach(doc => {
+                    let d = doc.data();
+                    
+                    // Filter: Only Batch 2018
+                    if (d.batch == "2018" || d.batch == 2018) {
+                        students.push(d);
+                    }
+                });
+
+                // Sort: Approved first, then by Name
+                students.sort((a, b) => {
+                    if (a.payment_status === "Approved" && b.payment_status !== "Approved") return -1;
+                    if (a.payment_status !== "Approved" && b.payment_status === "Approved") return 1;
+                    
+                    let nameA = (a.name || a.Name || "").toLowerCase();
+                    let nameB = (b.name || b.Name || "").toLowerCase();
+                    return nameA.localeCompare(nameB);
+                });
+
+                renderList(students);
+            }, (error) => {
+                console.error("Error:", error);
+                loadingDiv.innerHTML = `<p style="color:red">Error loading data. Check internet.</p>`;
+            });
+        }
+
+        function renderList(data) {
+            loadingDiv.style.display = 'none';
+            countSpan.innerText = data.length;
+            listContainer.innerHTML = "";
+
+            if (data.length === 0) {
+                listContainer.innerHTML = `
+                    <div style="text-align:center; padding:50px; color:#888;">
+                        <i class="fas fa-ghost" style="font-size:50px; margin-bottom:15px; color:#cbd5e0;"></i>
+                        <p>No students found for Batch 2018 yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Loop through data with INDEX for animation delay
+            data.forEach((u, index) => {
+                let displayName = u.name || u.Name || u.studentName || "Name Not Found";
+                
+                let statusText = u.payment_status || "Pending";
+                let badgeClass = "bg-pending";
+                let cardBorderClass = "pending";
+                let checkIcon = "";
+
+                if (statusText === "Approved") {
+                    badgeClass = "bg-approved";
+                    cardBorderClass = "approved";
+                    checkIcon = '<i class="fas fa-check-circle check-icon"></i>';
+                } else if (statusText === "Verified") {
+                    cardBorderClass = "verified";
+                } else if (statusText === "Rejected") {
+                    badgeClass = "bg-rejected";
+                    cardBorderClass = "rejected";
+                }
+
+                let photoUrl = u.photo || "https://i.ibb.co/5c5k7w2/user-placeholder.png";
+
+                // Added Animation Delay based on Index
+                const html = `
+                    <div class="student-card ${cardBorderClass}" style="animation-delay: ${index * 0.08}s">
+                        <img src="${photoUrl}" class="student-img" alt="User" onerror="this.src='https://via.placeholder.com/70?text=User'">
+                        
+                        <div class="student-info">
+                            <div class="student-name">${displayName}</div>
+                            <div class="student-phone">
+                                <i class="fas fa-phone-alt"></i> ${u.phone || "No Phone"}
+                            </div>
+                            <span class="status-badge ${badgeClass}">${statusText}</span>
+                        </div>
+                        
+                        ${checkIcon}
+                    </div>
+                `;
+                listContainer.innerHTML += html;
+            });
+        }
+
+        // Start loading
+        loadBatch2018();
+
+    </script> 
+</body>
+</html>
